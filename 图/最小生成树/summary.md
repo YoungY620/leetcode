@@ -47,6 +47,7 @@ void kruskal(struct edge *struct edges, int edge_size, int point_size, int *resu
     return total_cost;
 }
 ```
+
 ## Prim
 模板:
 1. 任选一个点，通常是0号点
