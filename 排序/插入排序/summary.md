@@ -27,15 +27,28 @@ void sort(int **intervals, int size){
 关键在于维护 “堆” 这个数据结构
 
 有两个关键的操作：
-- 构建堆，即统一遍历调整
+- 构建堆，即统一遍历调整(向下调整)
 - 向下调整，在**构建**时和**顶出堆顶值**
 - 向上调整，（可选）主要在添加新元素时。
  
+**构建：**
+
 当堆大小固定时（如寻找第k大值），只需堆满时利用“向下调整”调整一轮即可。
+```C
+/**
+ * P.S. 堆顶索引为1
+*/
+void build_heap(int *vheap, int *iheap, int heapsize){
+    int  i;
+    for(i = heapsize/2;i>0;i--){
+        adjustHead(vheap, iheap, heapsize, i);
+    }
+}
+```
 
 但在[力扣-1631](1631.最小体力消耗路径-堆优化最短路径.c)中，堆用于在Dijstra算法中维护一个距离表，如果每次加入新值都全局调整就开销太大了。
 
-向下调整（大顶堆）：
+**向下调整（大顶堆）：**
 ```C
 /**
  * nums: 堆数组
@@ -50,14 +63,15 @@ void adjustHead(int *nums, int size, int k){
             i++;
         }                       // i现在是k子节点中最大的
         if(tmp<nums[i]){
-            nums[k] = nums[i];  // 将i的值拉到k处
+            nums[k] = nums[i];  // 将i的值上拉到k处
             k = i;              // k下移到i处
         }else break;            // 找到了k为放置tmp的位置
     }
     nums[k] = tmp;
 }
 ```
-向上调整：
+**向上调整：**
+
 from 例题[1631.堆优化的最短路径](1631.最小体力消耗路径-堆优化最短路径.c)
 ```C
 /**

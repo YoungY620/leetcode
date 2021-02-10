@@ -12,7 +12,7 @@
 
 这一种类似于层序的遍历，但时间复杂度最坏$O(n^3)$
 
-例题： [321.矩阵中的最长递增路径](https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/description/)
+例题： [321.矩阵中的最长递增路径](329.矩阵中的最长递增路径.c)
 
 1. 遍历，找到所有入度为0的点
 2. 遍历这些点
@@ -24,7 +24,7 @@
 
 如下为经典的模板，时间复杂度最坏为$O(n^2)$
 
-例题： [210.课程表-ii](https://leetcode-cn.com/problems/course-schedule-ii/description/)
+例题： [210.课程表-ii](210.课程表-ii.c)
 
 1. 找到所有入度为0的点，**存入栈**
 2. 若栈不为空，则重复：
