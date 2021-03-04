@@ -58,6 +58,7 @@
 
 // @lc code=start
 
+// 不符合湍流
 # define A ((arr[right]>=arr[right-1]&&arr[right-1]>=arr[right-2])\
     ||(arr[right]<=arr[right-1]&&arr[right-1]<=arr[right-2]))
 
@@ -72,7 +73,7 @@ int maxTurbulenceSize(int* arr, int arrSize){
         len++;
         if(right-left>=2 && A){
             len=0;
-            left=--right;
+            left = --right;
         }else if(right - left == 1 && arr[left] == arr[right]){
             len=0;
             left = right;
