@@ -67,30 +67,19 @@
 - 这里数学代换:
   - 首先沿用0-1背包 `dp`, 直译题意, 有
 
-    $$
-      dp[i][j] = max(dp[i-1][j-x\times v[i]]+x\times w[i]), x\geq0 \tag{1}
-    $$
+    ![](img/Web%20capture_24-4-2021_14529_.jpeg)
 
     整理
 
-    $$
-    dp[i][j] = max(\\
-      dp[i-1][j], \\
-    dp[i-1][(j-v[i])-x\times v[i]]+x\times w[i]+w[i]\\
-    ), x\geq0 \tag{2}
-    $$
+    ![](img/Web%20capture_24-4-2021_145045_.jpeg)
 
     又由 (1) 式, 令 $j = j-v[i]$ 
 
-    $$
-    dp[i][j-v[i]] = max(dp[i-1][(j-v[i])-x\times v[i]]+x\times w[i]) \tag{3}
-    $$
+    ![](img/Web%20capture_24-4-2021_14532_.jpeg)
 
     将 (3) 式代入 (2) 式得:
 
-    $$
-    dp[i][j] = max(dp[i-1][j], dp[i][j-v[i]] + w[i])
-    $$
+    ![](img/Web%20capture_24-4-2021_145335_.jpeg)
 
 - 滚动数组: `dp[j]` 表示背包容量为 `j` 时, 从左至右.
 
@@ -98,6 +87,48 @@
 
 - 依然由0-1引申而来, 使用**二进制拆分**将 `c[i]` 个相同物品 `i` 分为多个不同的物体
 - 二进制拆分的合理性在于, 分量之间不相关, 彼此正交, 同时可以表示出所有整数
+
+### 排列组合问题（极像背包问题）
+
+- 排列组合问题, 要素：
+  - 待选集 `nums`
+  - 目标值 `target`
+  - 要求, 从 `nums` 中选, 总和**正好等于** `target`
+- 可能变种?: 
+  - `nums` 能否重复选?
+  - 是否考虑顺序, 即相同物品不同顺序算不同方案
+
+#### 可重复选且考虑顺序的情况
+
+- 定义
+  - `f[len][tar]` 表示在考虑前 `len` 个物品时, 总重达到 `tar` 有多少方案
+  - 最终解即 `f[nums.length][target]`
+
+    ![](img/Web%20capture_24-4-2021_144332_leetcode-cn.com.jpeg)
+
+  - 同样可以滚动数组优化:
+
+    ![](img/Web%20capture_24-4-2021_144454_leetcode-cn.com.jpeg)
+  
+  - 具体技巧:
+    - 当考虑顺序时, 则 target 在外侧循环, 内测遍历 nums:
+
+    ```python
+    for t in range(target):
+        for num in nums:
+            if nums <= t: 
+                f[t] += f[t-num]
+    ```
+      
+    - 而背包问题不考虑顺序, 因此 外侧遍历 nums, 内测遍历 target
+
+    ```python
+    for num in nums:
+        for i in range(target):
+            pass
+    ```
+
+- 模板题: [组合总和](377.组合总和-ⅳ.cpp)
 
 ### 其他例题
 
